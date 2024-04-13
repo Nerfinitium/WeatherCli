@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <curl/curl.h>
 #include <libxml/parser.h>
+#include <libxml/xpath.h>
+#include <libxml/xpathInternals.h>
+#include <stdlib.h>
 #include <memory.h>
 
 #define XML "https://www.mgm.gov.tr/FTPDATA/analiz/sonSOA.xml"
@@ -31,22 +34,52 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
 void parsexml(char *XmlContent) {
     xmlDocPtr doc;
     xmlNodePtr cur;
+    xmlXPathContextPtr xpathCtx;
+    xmlXPathObjectPtr xpathObj;
 
     doc = xmlParseDoc((xmlChar * ) XmlContent);
     if(doc == NULL) {
         fprintf(stderr, "dokuman ayirma basarisiz \n");
         return;
     }
-       cur = xmlDocGetRootElement(doc);
+
+    cur = xmlDocGetRootElement(doc);
     if(cur == NULL) {
         fprintf(stderr, "bos dokuman MGM yanit yok\n");
         xmlFreeDoc(doc);
         return;
     }
 
-    xmlFreeDoc(doc);
+    xpathCtx = xmlXPathNewContext(doc);
+    if(xpathCtx == NULL) {
+        fprintf(stderr,"Error: unable to create new XPath context\n");
+        xmlFreeDoc(doc);
+        return;
+    }
 
+    xpathObj = xmlXPathEvalExpression((xmlChar*)"//sehirler[ili='İSTANBUL']/Mak", xpathCtx);    if(xpathObj == NULL) {
+        fprintf(stderr,"Error: unable to evaluate xpath expression\n");
+        xmlXPathFreeContext(xpathCtx);
+        xmlFreeDoc(doc);
+        return;
+    }
+
+    xmlNodeSetPtr nodeset = xpathObj->nodesetval;
+    if (nodeset == NULL) {
+        fprintf(stderr, "Error: no nodes matched the XPath expression\n");
+    } else if (nodeset->nodeNr > 0) {
+        xmlChar* keyword = xmlNodeListGetString(doc, nodeset->nodeTab[0]->xmlChildrenNode, 1);
+        printf("Max temperature in Istanbul: %s\n", keyword);
+        xmlFree(keyword);
+    } else {
+        fprintf(stderr, "Error: no nodes matched the XPath expression\n");
+    }
+
+    xmlXPathFreeObject(xpathObj);
+    xmlXPathFreeContext(xpathCtx);
+    xmlFreeDoc(doc);
 }
+
 
 int main(void) {
       CURL *curl_handle;
