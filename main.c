@@ -1,3 +1,8 @@
+//C ile MGM api kullanarak hava durumu bilgilerini çekmek için yapılan basit bir projedir seviliyorsunuz.
+
+
+//ileride vaktim olursa bu projeyi geliştirmeyi düşünüyorum.
+//otomatik lokasyon alma ve komut sistemi getirilebilir.
 #include <stdio.h>
 #include <curl/curl.h>
 #include <libxml/parser.h>
@@ -52,13 +57,17 @@ void parsexml(char *XmlContent) {
 
     xpathCtx = xmlXPathNewContext(doc);
     if(xpathCtx == NULL) {
-        fprintf(stderr,"Error: unable to create new XPath context\n");
+        fprintf(stderr,"Xpath olusturulamiyor\n");
         xmlFreeDoc(doc);
         return;
     }
 
-    xpathObj = xmlXPathEvalExpression((xmlChar*)"//sehirler[ili='İSTANBUL']/Mak", xpathCtx);    if(xpathObj == NULL) {
-        fprintf(stderr,"Error: unable to evaluate xpath expression\n");
+    //GEREKMEDIKCE XPATHOBJ ILE OYNAMAYIN LUTFEN
+    //sehiri veya bogleyi degistirmenize yarar
+    xpathObj = xmlXPathEvalExpression((xmlChar*)"//sehirler[ili='İSTANBUL']/Mak", xpathCtx);    if(xpathObj == NULL)
+
+    {
+        fprintf(stderr,"Xpath hata 1\n");
         xmlXPathFreeContext(xpathCtx);
         xmlFreeDoc(doc);
         return;
@@ -66,13 +75,13 @@ void parsexml(char *XmlContent) {
 
     xmlNodeSetPtr nodeset = xpathObj->nodesetval;
     if (nodeset == NULL) {
-        fprintf(stderr, "Error: no nodes matched the XPath expression\n");
+        fprintf(stderr, "Eslesen node yok\n");
     } else if (nodeset->nodeNr > 0) {
         xmlChar* keyword = xmlNodeListGetString(doc, nodeset->nodeTab[0]->xmlChildrenNode, 1);
-        printf("Max temperature in Istanbul: %s\n", keyword);
+        printf("istanbuldaki en yuksek derece: %s\n", keyword);
         xmlFree(keyword);
     } else {
-        fprintf(stderr, "Error: no nodes matched the XPath expression\n");
+        fprintf(stderr, "Eslesen node yok\n");
     }
 
     xmlXPathFreeObject(xpathObj);
@@ -104,7 +113,7 @@ int main(void) {
     if(res != CURLE_OK) {
         fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
     } else {
-        printf("%lu bytes retrieved\n", (unsigned long)chunk.size);
+        printf("%lu Bayt kullanildi\n", (unsigned long)chunk.size);
         parsexml(chunk.memory);
     }
 
