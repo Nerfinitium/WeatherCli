@@ -1,0 +1,11 @@
+//
+// Created by buldu on 14.04.2024.
+//
+
+#ifndef UNTITLED2_LOCATIONDETECTION_H
+#define UNTITLED2_LOCATIONDETECTION_H
+
+#include <stdio.h>
+
+
+#endif //UNTITLED2_LOCATIONDETECTION_H
