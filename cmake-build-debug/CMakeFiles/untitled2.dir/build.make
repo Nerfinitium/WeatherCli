@@ -124,6 +124,8 @@ untitled2: CMakeFiles/untitled2.dir/main.c.o
 untitled2: CMakeFiles/untitled2.dir/locationdetection.c.o
 untitled2: CMakeFiles/untitled2.dir/Cmanager.c.o
 untitled2: CMakeFiles/untitled2.dir/build.make
+untitled2: /usr/lib/x86_64-linux-gnu/libcurl.so
+untitled2: /usr/lib/x86_64-linux-gnu/libxml2.so
 untitled2: CMakeFiles/untitled2.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/Users/buldu/CLionProjects/untitled2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable untitled2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/untitled2.dir/link.txt --verbose=$(VERBOSE)
