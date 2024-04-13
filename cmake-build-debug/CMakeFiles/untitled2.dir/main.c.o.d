@@ -116,5 +116,7 @@ CMakeFiles/untitled2.dir/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
  /usr/include/libxml2/libxml/xlink.h \
  /usr/include/libxml2/libxml/xmlmemory.h \
- /usr/include/libxml2/libxml/threads.h /usr/include/memory.h \
+ /usr/include/libxml2/libxml/threads.h \
+ /usr/include/libxml2/libxml/xpath.h \
+ /usr/include/libxml2/libxml/xpathInternals.h /usr/include/memory.h \
  /usr/include/string.h /usr/include/strings.h

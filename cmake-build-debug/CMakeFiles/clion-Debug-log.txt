@@ -1,6 +1,4 @@
 C:\Windows\system32\wsl.exe --distribution Ubuntu-22.04 --exec /mnt/c/Users/buldu/AppData/Local/Programs/CLion/bin/ttyfix /bin/bash -c "export CLION_IDE=TRUE && export CMAKE_COLOR_DIAGNOSTICS=ON && export JETBRAINS_IDE=TRUE && cd /mnt/c/Users/buldu/CLionProjects/untitled2/cmake-build-debug && /usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G 'CodeBlocks - Unix Makefiles' -S /mnt/c/Users/buldu/CLionProjects/untitled2 -B /mnt/c/Users/buldu/CLionProjects/untitled2/cmake-build-debug"
--- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.81.0")  
--- Found LibXml2: /usr/lib/x86_64-linux-gnu/libxml2.so (found version "2.9.13") 
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /mnt/c/Users/buldu/CLionProjects/untitled2/cmake-build-debug
